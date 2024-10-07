@@ -1,3 +1,5 @@
+import BaseButton from "./BaseButton";
+
 /* eslint-disable react/prop-types */
 export default function NextButton({ dispatch, answer, index, numQuestions }) {
   if (answer === null) {
@@ -13,16 +15,8 @@ export default function NextButton({ dispatch, answer, index, numQuestions }) {
   }
 
   if (index < numQuestions - 1)
-    return (
-      <button className="btn btn-ui" onClick={handleNext}>
-        Next
-      </button>
-    );
+    return <BaseButton onClick={handleNext}>Next</BaseButton>;
 
   if (index === numQuestions - 1)
-    return (
-      <button className="btn btn-ui" onClick={handleFinish}>
-        Finish
-      </button>
-    );
+    return <BaseButton onClick={handleFinish}>Finish</BaseButton>;
 }

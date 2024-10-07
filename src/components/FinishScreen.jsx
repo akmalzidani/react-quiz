@@ -1,5 +1,16 @@
+import BaseButton from "./BaseButton";
+
 /* eslint-disable react/prop-types */
-export default function FinishScreen({ score, maxPossibleScore, highscore }) {
+export default function FinishScreen({
+  score,
+  maxPossibleScore,
+  highscore,
+  dispatch,
+}) {
+  function handleRestart() {
+    return dispatch({ type: "restart" });
+  }
+
   const percentage = (score / maxPossibleScore) * 100;
 
   let emoji;
@@ -16,6 +27,8 @@ export default function FinishScreen({ score, maxPossibleScore, highscore }) {
         {maxPossibleScore} ({Math.ceil(percentage)}%)
       </p>
       <p className="highscore">(Highscore: {highscore} Points)</p>
+
+      <BaseButton onClick={handleRestart}>Restart quiz</BaseButton>
     </>
   );
 }
