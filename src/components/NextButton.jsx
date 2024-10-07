@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-export default function NextButton({ dispatch, answer }) {
+export default function NextButton({ dispatch, answer, index, numQuestions }) {
   if (answer === null) {
     return null;
   }
@@ -8,9 +8,21 @@ export default function NextButton({ dispatch, answer }) {
     return dispatch({ type: "nextQuestion" });
   }
 
-  return (
-    <button className="btn btn-ui" onClick={handleNext}>
-      Next
-    </button>
-  );
+  function handleFinish() {
+    return dispatch({ type: "finish" });
+  }
+
+  if (index < numQuestions - 1)
+    return (
+      <button className="btn btn-ui" onClick={handleNext}>
+        Next
+      </button>
+    );
+
+  if (index === numQuestions - 1)
+    return (
+      <button className="btn btn-ui" onClick={handleFinish}>
+        Finish
+      </button>
+    );
 }
