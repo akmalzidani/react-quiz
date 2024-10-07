@@ -5,6 +5,7 @@ import Loader from "./components/Loader";
 import Error from "./components/Error";
 import StartScreen from "./components/StartScreen";
 import Questions from "./components/Questions";
+import NextButton from "./components/NextButton";
 
 const initialState = {
   questions: [],
@@ -37,9 +38,7 @@ function reducer(state, action) {
       };
     }
     case "nextQuestion":
-      return { ...state, index: state.index + 1 };
-    case "incrementScore":
-      return { ...state, score: state.score + 1 };
+      return { ...state, index: state.index + 1, answer: null };
     default:
       throw new Error("Invalid action type");
   }
@@ -78,11 +77,14 @@ export default function App() {
           <StartScreen numQuestions={numQuestions} dispatch={dispatch} />
         )}
         {status === "active" && (
-          <Questions
-            questions={questions[index]}
-            dispatch={dispatch}
-            answer={answer}
-          />
+          <>
+            <Questions
+              questions={questions[index]}
+              dispatch={dispatch}
+              answer={answer}
+            />
+            <NextButton dispatch={dispatch} answer={answer} />
+          </>
         )}
       </Main>
     </div>

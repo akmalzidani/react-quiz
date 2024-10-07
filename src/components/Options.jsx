@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 export default function Options({ options, dispatch, answer, correctOption }) {
   function handleAnswer(index) {
-    dispatch({ type: "newAnswer", payload: index });
+    return dispatch({ type: "newAnswer", payload: index });
   }
 
   const hasAnswer = answer !== null;
