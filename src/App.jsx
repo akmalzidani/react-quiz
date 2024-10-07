@@ -8,7 +8,8 @@ import Questions from "./components/Questions";
 
 const initialState = {
   questions: [],
-  currentQuestion: 0,
+  index: 0,
+  answer: null,
   score: 0,
 
   // loading, error, ready, active, finished
@@ -23,8 +24,20 @@ function reducer(state, action) {
       return { ...state, status: "error" };
     case "startQuiz":
       return { ...state, status: "active" };
+    case "newAnswer": {
+      const question = state.questions[state.index];
+
+      return {
+        ...state,
+        answer: action.payload,
+        score:
+          action.payload === question.correctOption
+            ? state.score + question.points
+            : state.score,
+      };
+    }
     case "nextQuestion":
-      return { ...state, currentQuestion: state.currentQuestion + 1 };
+      return { ...state, index: state.index + 1 };
     case "incrementScore":
       return { ...state, score: state.score + 1 };
     default:
@@ -33,7 +46,7 @@ function reducer(state, action) {
 }
 
 export default function App() {
-  const [{ questions, status, currentQuestion }, dispatch] = useReducer(
+  const [{ questions, status, index, answer }, dispatch] = useReducer(
     reducer,
     initialState
   );
@@ -65,7 +78,11 @@ export default function App() {
           <StartScreen numQuestions={numQuestions} dispatch={dispatch} />
         )}
         {status === "active" && (
-          <Questions question={questions[currentQuestion]} />
+          <Questions
+            questions={questions[index]}
+            dispatch={dispatch}
+            answer={answer}
+          />
         )}
       </Main>
     </div>
