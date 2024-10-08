@@ -19,6 +19,12 @@ bun install
 bun dev
 ```
 
+### To run the fake api server
+
+```sh
+bun server
+```
+
 ### Type-Check, Compile and Minify for Production
 
 ```sh
