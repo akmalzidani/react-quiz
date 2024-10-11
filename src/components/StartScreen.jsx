@@ -1,9 +1,17 @@
+import { useEffect } from "react";
+import { useQuiz } from "../contexts/QuizContext";
 import BaseButton from "./BaseButton";
 
-// eslint-disable-next-line react/prop-types
-export default function StartScreen({ numQuestions, dispatch }) {
-  function handleStart() {
-    dispatch({ type: "startQuiz" });
+export default function StartScreen() {
+  const { numQuestions, start } = useQuiz();
+
+  useEffect(() => {
+    console.log(numQuestions);
+  }, [numQuestions]);
+
+  function handleStart(e) {
+    e.preventDefault();
+    start();
   }
 
   return (
