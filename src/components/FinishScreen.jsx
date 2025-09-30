@@ -1,14 +1,11 @@
+import { useQuiz } from "../contexts/QuizContext";
 import BaseButton from "./BaseButton";
 
-/* eslint-disable react/prop-types */
-export default function FinishScreen({
-  score,
-  maxPossibleScore,
-  highscore,
-  dispatch,
-}) {
+export default function FinishScreen() {
+  const { score, maxPossibleScore, highscore, restart } = useQuiz();
+
   function handleRestart() {
-    return dispatch({ type: "restart" });
+    restart();
   }
 
   const percentage = (score / maxPossibleScore) * 100;

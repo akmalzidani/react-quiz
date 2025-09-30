@@ -1,18 +1,25 @@
-/* eslint-disable react/prop-types */
-export default function Options({ options, dispatch, answer, correctOption }) {
+import { useQuiz } from "../contexts/QuizContext";
+
+export default function Options({ question }) {
+  const { answer, selectAnswer } = useQuiz();
+
   function handleAnswer(index) {
-    return dispatch({ type: "newAnswer", payload: index });
+    selectAnswer(index);
   }
 
   const hasAnswer = answer !== null;
 
   return (
     <div className="options">
-      {options.map((option, index) => (
+      {question.options.map((option, index) => (
         <button
           key={option}
           className={`btn btn-option ${index === answer ? "answer" : ""} ${
-            hasAnswer ? (index === correctOption ? "correct" : "wrong") : ""
+            hasAnswer
+              ? index === question.correctOption
+                ? "correct"
+                : "wrong"
+              : ""
           }`}
           disabled={hasAnswer}
           onClick={() => handleAnswer(index)}

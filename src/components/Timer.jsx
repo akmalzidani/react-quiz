@@ -1,17 +1,19 @@
 import { useEffect } from "react";
+import { useQuiz } from "../contexts/QuizContext";
 
-// eslint-disable-next-line react/prop-types
-export default function Timer({ secondRemaining, dispatch }) {
+export default function Timer() {
+  const { secondRemaining, runTimer } = useQuiz();
+
   const mins = Math.floor(secondRemaining / 60);
   const secs = secondRemaining % 60;
 
   useEffect(() => {
     const time = setInterval(() => {
-      dispatch({ type: "tick" });
+      runTimer();
     }, 1000);
 
     return () => clearInterval(time);
-  }, [dispatch]);
+  }, [runTimer]);
 
   return (
     <div className="timer">

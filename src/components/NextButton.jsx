@@ -1,17 +1,19 @@
+import { useQuiz } from "../contexts/QuizContext";
 import BaseButton from "./BaseButton";
 
-/* eslint-disable react/prop-types */
-export default function NextButton({ dispatch, answer, index, numQuestions }) {
+export default function NextButton() {
+  const { answer, index, numQuestions, nextQuestion, finish } = useQuiz();
+
   if (answer === null) {
     return null;
   }
 
   function handleNext() {
-    return dispatch({ type: "nextQuestion" });
+    nextQuestion();
   }
 
   function handleFinish() {
-    return dispatch({ type: "finish" });
+    finish();
   }
 
   if (index < numQuestions - 1)

@@ -1,20 +1,14 @@
+import { useQuiz } from "../contexts/QuizContext";
 import Options from "./Options";
 
-/* eslint-disable react/prop-types */
-export default function Questions({
-  questions: { question, options, correctOption },
-  dispatch,
-  answer,
-}) {
+export default function Questions() {
+  const { questions, index } = useQuiz();
+  const currentQuestion = questions[index];
+
   return (
     <div>
-      <h4>{question}</h4>
-      <Options
-        options={options}
-        dispatch={dispatch}
-        answer={answer}
-        correctOption={correctOption}
-      />
+      <h4>{currentQuestion.question}</h4>
+      <Options question={currentQuestion} />
     </div>
   );
 }
