@@ -7,7 +7,7 @@ export default function Questions() {
 
   return (
     <div>
-      <h4>{questions.question}</h4>
+      <h4>{currentQuestion.question}</h4>
       <Options question={currentQuestion} />
     </div>
   );
